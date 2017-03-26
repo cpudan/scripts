@@ -1,0 +1,6 @@
+#!/bin/bash
+info="$(acpi | sed -n 1p); $(acpi | sed -n 2p)"
+i3-nagbar -t warning -m "$info" &
+pid=$!
+sleep 5
+kill -KILL $pid

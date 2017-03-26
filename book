@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+pdf=zathura
+
+alert="i3-nagbar -m"
+
+pid=''
+file=$1
+if [[ $# > 1 ]]; then
+  if [ $1 == -m ] ; then
+    pdf=mupdf
+    file=$2
+  fi
+  if [ $2 == -m ] ; then
+    pdf=mupdf
+  fi
+fi
+
+path=/home/dan/books
+
+if [[ -z "${file// }" ]];then
+  echo "No soup for you"
+elif [[ $file == "show" ]]; then
+  booklist=$(basename -a $(find $path -name "*$2*"))
+  $alert "Are you looking for ${booklist[0]}?" &
+  pid=$!
+else
+  results=$(find $path -name "*$file*")
+  if [[ -z "${results// }" ]]; then
+    $alert "No textbook for \"$1\"!"&
+    pid=$!
+  else
+    #results=$(find $path -name "*$file*")
+    IFS=$'\n' y=(${results//$'\n'/ })
+    IFS=$'\n' y=($results)
+    $pdf ${y[0]}
+  fi
+fi
+
+if [[ $pid -ne '' ]] ; then
+  sleep 5
+  kill -KILL $pid
+fi
