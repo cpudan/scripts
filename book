@@ -29,7 +29,6 @@ else
     $alert "No textbook for \"$1\"!"&
     pid=$!
   else
-    #results=$(find $path -name "*$file*")
     IFS=$'\n' y=(${results//$'\n'/ })
     IFS=$'\n' y=($results)
     $pdf ${y[0]}
