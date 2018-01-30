@@ -1,0 +1,2 @@
+#!/usr/bin/zsh
+grep -n $1 *

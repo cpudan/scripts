@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-i3lock -c 000000 -n
+i3lock -i /home/dan/Pictures/wave.png
